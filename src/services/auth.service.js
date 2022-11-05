@@ -6,6 +6,11 @@ const register = (email, password) => {
     return axios.post(API_URL, {
         email,
         password
+    }).then(response => {
+        if(response.headers["access-token"]) {
+            localStorage.setItem("user", JSON.stringify(response));
+        }
+        return response;
     })
 }
 

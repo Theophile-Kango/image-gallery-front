@@ -6,8 +6,6 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 
-import { login } from "../actions/auth";
-
 const required = value => {
     if(!value){
         return (
@@ -18,7 +16,8 @@ const required = value => {
     }
 }
 
-const Login = props => {
+const AuthForm = props => {
+    const { actionName, link, linkText, auth, redirect } = props;
     let navigate = useNavigate();
 
     const form = useRef();
@@ -50,13 +49,16 @@ const Login = props => {
         form.current.validateAll();
 
         if(CheckBtn.current.context._errors.length === 0){
-            dispatch(login(email, password))
+            dispatch(auth(email, password))
             .then(() => {
                 setLoading(false);
-                setEmail("");
-                setPassword("");
                 navigate("/images_gallery");
-                //window.location.reload();
+                if(redirect)  {
+                    setEmail("");
+                    setPassword("");
+                }else{
+                    window.location.reload();
+                }
             })
             .catch(() => {
                 setLoading(false);
@@ -73,6 +75,7 @@ const Login = props => {
     return (
         <div className="col-md-12">
             <div className="card card-container">
+                <h2>{actionName}</h2>
                 <Form onSubmit={handleLogin} ref={form}>
                     <div className="form-group">
                         <label htmlFor="email">Email</label>
@@ -96,12 +99,13 @@ const Login = props => {
                             validations={[required]}
                         />
                     </div>
+                    <a href={link}>{linkText}</a>
                     <div className="form-group">
                         <button className="btn btn-primary btn-block" disabled={loading}>
                             {loading && (
                                 <span className="spinner-border spinner-border-sm"></span>
                             )}
-                            <span>Login</span>
+                            <span>{actionName}</span>
                         </button>
                     </div>
 
@@ -119,4 +123,4 @@ const Login = props => {
     )
 };
 
-export default Login;
+export default AuthForm;
