@@ -7,6 +7,20 @@ const getGalleries = () => {
     return axios.get(API_URL+"image_galleries", { headers: authHeader() });
 }
 
+const resetPassword = (password, password_confirmation) => {
+    return axios
+    .put(API_URL+"auth/password",{
+        password,
+        password_confirmation
+    }, { headers: authHeader() }).then(response => {
+        if(response.headers["access-token"]) {
+            localStorage.setItem("user", JSON.stringify(response));
+        }
+        return response;
+    })
+}
+
 export default {
-    getGalleries
+    getGalleries,
+    resetPassword
 }

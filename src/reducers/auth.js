@@ -3,6 +3,8 @@ import {
     REGISTER_FAIL,
     LOGIN_FAIL,
     LOGIN_SUCCESS,
+    RESET_SUCCESS,
+    RESET_FAIL,
     LOGOUT,
 } from "../actions/types";
 
@@ -19,7 +21,7 @@ export default function (state = initialState, action) {
         case REGISTER_SUCCESS:
             return {
                 ...state,
-                isLoggedIn: false,
+                isLoggedIn: true,
             };
         case REGISTER_FAIL:
             return {
@@ -37,7 +39,20 @@ export default function (state = initialState, action) {
                 ...state,
                 isLoggedIn: false,
                 user: null,
+            };
+        case RESET_SUCCESS:
+            return {
+                ...state,
+                isLoggedIn: true,
+                //user: payload.user
+            };
+        case RESET_FAIL:
+            return {
+                ...state,
+                isLoggedIn: true,
+                //user: payload.user,
             }
+        
         case LOGOUT:
             return {
                 ...state,

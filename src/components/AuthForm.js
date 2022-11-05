@@ -17,7 +17,7 @@ const required = value => {
 }
 
 const AuthForm = props => {
-    const { actionName, link, linkText, auth, redirect } = props;
+    const { actionName, link, linkText, auth, redirect, reset } = props;
     let navigate = useNavigate();
 
     const form = useRef();
@@ -25,8 +25,8 @@ const AuthForm = props => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [passwordConfirmation, setPasswordConfirmation] = useState("");
     const [loading, setLoading] = useState(false);
-
     const { isLoggedIn } = useSelector(state => state.auth);
     const { message } = useSelector(state => state.message);
 
@@ -40,6 +40,11 @@ const AuthForm = props => {
     const onChangePassword = e => {
         const password = e.target.value;
         setPassword(password);
+    }
+
+    const onChangePasswordConfirmation = e => {
+        const passwordConfirmaton = e.target.value;
+        setPasswordConfirmation(passwordConfirmaton);
     }
 
     const handleLogin = e => {
@@ -68,7 +73,28 @@ const AuthForm = props => {
         }
     }
 
-    if(isLoggedIn) {
+    const handleReset = e => {
+        e.preventDefault();
+        setLoading(true);
+
+        form.current.validateAll();
+
+        if(CheckBtn.current.context._errors.length === 0){
+            dispatch(auth(password, passwordConfirmation))
+            .then(() => {
+                setLoading(false);
+                navigate("/");
+                window.location.reload();
+            })
+            .catch(() => {
+                setLoading(false);
+            });
+        }else{
+            setLoading(false);
+        }
+    }
+
+    if(isLoggedIn && !reset) {
         return <Navigate to="/" />;
     }
 
@@ -76,18 +102,21 @@ const AuthForm = props => {
         <div className="col-md-12">
             <div className="card card-container">
                 <h2>{actionName}</h2>
-                <Form onSubmit={handleLogin} ref={form}>
-                    <div className="form-group">
-                        <label htmlFor="email">Email</label>
-                        <Input
-                            type="email"
-                            className="form-control"
-                            name="email"
-                            value={email}
-                            onChange={onChangeEmail}
-                            validations={[required]}
-                        />
-                    </div>
+                <Form onSubmit={!reset ? handleLogin : handleReset} ref={form}>
+                    {!reset && (
+                        <div className="form-group">
+                            <label htmlFor="email">Email</label>
+                            <Input
+                                type="email"
+                                className="form-control"
+                                name="email"
+                                value={email}
+                                onChange={onChangeEmail}
+                                validations={[required]}
+                            />
+                        </div>
+                    )}
+                        
                     <div className="form-group">
                         <label htmlFor="email">Password</label>
                         <Input
@@ -99,6 +128,22 @@ const AuthForm = props => {
                             validations={[required]}
                         />
                     </div>
+
+                    {reset && (
+                        <div className="form-group">
+                            <label htmlFor="email">Password Confirmation</label>
+                            <Input
+                                type="password"
+                                className="form-control"
+                                name="password_confirmation"
+                                value={passwordConfirmation}
+                                onChange={onChangePasswordConfirmation}
+                                validations={[required]}
+                            />
+                        </div>
+                    )}
+                        
+
                     <a href={link}>{linkText}</a>
                     <div className="form-group">
                         <button className="btn btn-primary btn-block" disabled={loading}>

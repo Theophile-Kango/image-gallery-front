@@ -4,10 +4,13 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     LOGOUT,
-    SET_MESSAGE
+    SET_MESSAGE,
+    RESET_SUCCESS,
+    RESET_FAIL
 } from "./types";
 
 import AuthService from "../services/auth.service";
+import ResetService from "../services/user.service";
 
 export const register = (email, password) => dispatch => {
     return AuthService.register(email, password).then(
@@ -63,6 +66,38 @@ export const login = (email, password) => dispatch => {
             
             dispatch({
                 type: LOGIN_FAIL
+            });
+
+            dispatch({
+                type: SET_MESSAGE,
+                payload: message
+            });
+
+            return Promise.reject();
+        }
+    )
+}
+
+export const reset = (password, passwordConfirmation) => dispatch => {
+    return ResetService.resetPassword(password, passwordConfirmation).then(
+        data => {
+            AuthService.logout();
+            dispatch({
+                type: RESET_SUCCESS,
+                payload: { user: data }
+            });
+
+            return Promise.resolve();
+        },
+        error => {
+            const message = (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+                error.message ||
+                error.toString();
+            
+            dispatch({
+                type: RESET_FAIL
             });
 
             dispatch({
