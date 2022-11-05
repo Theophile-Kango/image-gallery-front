@@ -15,10 +15,10 @@ const login = (email, password) => {
         email,
         password
     }).then(response => {
-        if(response.data.data.uid) {
-            localStorage.setItem("user", JSON.stringify(response.data));
+        if(response.headers["access-token"]) {
+            localStorage.setItem("user", JSON.stringify(response));
         }
-        return response.data;
+        return response;
     })
 }
 

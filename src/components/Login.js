@@ -52,7 +52,10 @@ const Login = props => {
         if(CheckBtn.current.context._errors.length === 0){
             dispatch(login(email, password))
             .then(() => {
-                navigate("/");
+                setLoading(false);
+                setEmail("");
+                setPassword("");
+                navigate("/images_gallery");
                 //window.location.reload();
             })
             .catch(() => {
