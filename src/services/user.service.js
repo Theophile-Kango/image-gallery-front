@@ -1,7 +1,7 @@
 import axios from "axios";
 import authHeader from "./auth-header";
 
-const API_URL = "http://localhost:3000/api/";
+const API_URL = process.env.REACT_APP_API;
 
 const getGalleries = () => {
   return axios.get(API_URL + "image_galleries", { headers: authHeader() });

@@ -1,7 +1,7 @@
 import axios from "axios";
-import authHeader from "./auth-header";
 
-const API_URL = "http://localhost:3000/api/auth/";
+const API_URL = `${process.env.REACT_APP_API}auth/`;
+console.log(process.env.REACT_APP_API)
 
 const register = (email, password) => {
   return axios

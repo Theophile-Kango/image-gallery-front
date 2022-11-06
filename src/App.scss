@@ -76,10 +76,13 @@ $grey: rgb(251, 251, 251);
     }
   }
   .nav__container,
-  .images__gallery__container,
   .form__image {
     padding-left: 2rem;
     padding-right: 2rem;
+  }
+
+  .images__gallery__container {
+    padding-left: 2rem;
   }
 
   .form__image {
@@ -114,7 +117,7 @@ $grey: rgb(251, 251, 251);
     .galleries {
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
+      justify-content: first baseline;
       .gallery {
         width: 400px;
         height: 500px;
@@ -122,6 +125,7 @@ $grey: rgb(251, 251, 251);
         margin-bottom: 20px;
         overflow: auto;
         background-color: $grey;
+        margin-right: 2rem;
 
         img {
           width: 100%;
