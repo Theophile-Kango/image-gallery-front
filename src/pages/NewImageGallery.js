@@ -38,7 +38,7 @@ const NewImageGallery = () => {
 
     const onTitleChange = e => {
         const title = e.target.value;
-        setTitle(title)
+        setTitle(title);
     }
 
     const onChangeDescription = e => {
@@ -61,7 +61,7 @@ const NewImageGallery = () => {
 
         form.current.validateAll();
 
-        if(CheckBtn.current.context._errors.length === 0){
+        if(image && (CheckBtn.current.context._errors.length === 0)){
             dispatch(createGallerie(title, description, fileDataURL))
             .then(() => {
                 setLoading(false);
@@ -147,13 +147,14 @@ const NewImageGallery = () => {
                                 id='image'
                                 accept='.png, .jpg, .jpeg'
                                 onChange={onChangeImage}
+                                validations={[required]}
                             />
                         </p>
                         
                         {fileDataURL ?
                             <p className="img-preview-wrapper">
                                 {
-                                    <img src={fileDataURL} alt="preview" />
+                                    <img src={fileDataURL} alt="preview" style={{width: "500px"}} />
                                 }
                             </p> : null}
                     </div>

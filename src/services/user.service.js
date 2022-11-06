@@ -27,7 +27,7 @@ const createImageGallery = (title, description, image) => {
         title,
         description,
         image
-    }, { headers: authHeader() })
+    }, { headers: authHeader() });
 }
 
 

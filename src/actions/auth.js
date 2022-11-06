@@ -130,7 +130,7 @@ export const createGallerie = (title, description, image) => dispatch => {
                 error.toString();
             
             dispatch({
-                type: RESET_FAIL
+                type: CREATE_GALLERY_FAIL
             });
 
             dispatch({
