@@ -20,22 +20,24 @@ const ImagesGallery = () => {
     },[]);
 
     return (
-        <div className="container">
+        <div className="container-gluid images__gallery__container">
             <header className="jumbotron">
-                <h1>Images Gallery</h1>
+                <h1>Image Gallery</h1>
             </header>
-            {content && content.length > 0 && content.map(
-                imageGallerie => (
-                    <div key={imageGallerie.id}>
-                        <h3>{imageGallerie.title}</h3>
-                        <p>{imageGallerie.description}</p>
-                        <div>
-                            <img alt="Uploaded Image" src={imageGallerie.image} style={{width: "500px"}}  />
+            <div className="galleries">
+                {content && content.length > 0 && content.map(
+                    imageGallerie => (
+                        <div key={imageGallerie.id} className="gallery">
+                            <div>
+                                <img alt="Uploaded Image" src={imageGallerie.image}  />
+                                <figcaption><span>Posted on</span> {imageGallerie.date}</figcaption>
+                            </div>
+                            <h3>{imageGallerie.title}</h3>
+                            <p>{imageGallerie.description}</p>
                         </div>
-                        <small>Posted on {imageGallerie.date}</small>
-                    </div>
-                )
-            )}
+                    )
+                )}
+            </div>
         </div>
     )
 }

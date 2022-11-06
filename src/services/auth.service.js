@@ -1,4 +1,5 @@
 import axios from "axios";
+import authHeader from "./auth-header";
 
 const API_URL = "http://localhost:3000/api/auth/";
 
@@ -29,7 +30,7 @@ const login = (email, password) => {
 
 const logout = () => {
     localStorage.removeItem("user");
-    return axios.delete(API_URL+"sign_out");
+    //return axios.delete(API_URL+"sign_out", { headers: authHeader() });
 }
 
 export default {

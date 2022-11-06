@@ -101,8 +101,8 @@ const NewImageGallery = () => {
     }, [image]);
 
     return (
-        <div className="col-md-12">
-            <div className="card card-container">
+        <div className="col-md-12 form__image">
+            <div className="card card-container form__container">
                 <h2>Create Image Gallery</h2>
                 {message && (
                     <div className="form-group">
@@ -160,7 +160,7 @@ const NewImageGallery = () => {
                     </div>
 
                     <div className="form-group">
-                        <button className="btn btn-primary btn-block" disabled={loading}>
+                        <button className="btn btn-dark btn-block" disabled={loading}>
                             {loading && (
                                 <span className="spinner-border spinner-border-sm"></span>
                             )}
