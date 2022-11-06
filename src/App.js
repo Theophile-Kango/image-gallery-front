@@ -9,6 +9,7 @@ import ImagesGallery from "./pages/ImagesGallery";
 import Login from "./pages/Login";
 import Registration from "./pages/Registration";
 import ResetPassword from "./pages/ResetPassword";
+import NewImageGallery from "./pages/NewImageGallery";
 
 const App = () => {
   const { user: currentUser } = useSelector(state => state.auth);
@@ -37,6 +38,11 @@ const App = () => {
                 </Link>
               </li>
               <li className="nav-item">
+                <Link to="/new_image_gallery" className="nav-link">
+                  New Image Gallery
+                </Link>
+              </li>
+              <li className="nav-item">
                 <Link to="/reset_password" className="nav-link">
                   Reset Password
                 </Link>
@@ -52,13 +58,19 @@ const App = () => {
       <div className="container mt-3">
         <Routes>
           {currentUser ? 
-            <Route path="/" element={<ImagesGallery />} /> : 
-            <Route path="/" element={<Login />} />
+            <>
+              <Route path="/" element={<ImagesGallery />} />
+              <Route path="/images_gallery" element={<ImagesGallery />} />    
+              <Route path="/reset_password" element={<ResetPassword />} /> 
+              <Route path="/new_image_gallery" element={<NewImageGallery />} />
+            </>
+            : 
+            <>
+              <Route path="/" element={<Login />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Registration />} />
+            </>
           }
-          <Route path="/login" element={<Login />} />
-          <Route path="/images_gallery" element={<ImagesGallery />} />
-          <Route path="/register" element={<Registration />} />
-          <Route path="/reset_password" element={<ResetPassword />} />
         </Routes>
       </div>
     </div>

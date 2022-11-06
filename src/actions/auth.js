@@ -6,7 +6,9 @@ import {
     LOGOUT,
     SET_MESSAGE,
     RESET_SUCCESS,
-    RESET_FAIL
+    RESET_FAIL,
+    CREATE_GALLERY_SUCCESS, 
+    CREATE_GALLERY_FAIL
 } from "./types";
 
 import AuthService from "../services/auth.service";
@@ -84,6 +86,37 @@ export const reset = (password, passwordConfirmation) => dispatch => {
             AuthService.logout();
             dispatch({
                 type: RESET_SUCCESS,
+                payload: { user: data }
+            });
+
+            return Promise.resolve();
+        },
+        error => {
+            const message = (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+                error.message ||
+                error.toString();
+            
+            dispatch({
+                type: RESET_FAIL
+            });
+
+            dispatch({
+                type: SET_MESSAGE,
+                payload: message
+            });
+
+            return Promise.reject();
+        }
+    )
+}
+
+export const createGallerie = (title, description, image) => dispatch => {
+    return ResetService.createImageGallery(title, description, image).then(
+        data => {
+            dispatch({
+                type: CREATE_GALLERY_SUCCESS,
                 payload: { user: data }
             });
 

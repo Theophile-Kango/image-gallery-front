@@ -1,6 +1,7 @@
 import axios from "axios";
 import authHeader from "./auth-header";
 
+
 const API_URL = "http://localhost:3000/api/";
 
 const getGalleries = () => {
@@ -20,7 +21,19 @@ const resetPassword = (password, password_confirmation) => {
     })
 }
 
+const createImageGallery = (title, description, image) => {
+    return axios
+    .post(API_URL+"image_galleries", {
+        title,
+        description,
+        image
+    }, { headers: authHeader() })
+}
+
+
+
 export default {
     getGalleries,
-    resetPassword
+    resetPassword,
+    createImageGallery
 }

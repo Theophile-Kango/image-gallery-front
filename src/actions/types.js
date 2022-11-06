@@ -5,5 +5,7 @@ export const LOGIN_FAIL = "LOGIN_FAIL";
 export const LOGOUT = "LOGOUT";
 export const RESET_SUCCESS = "RESET_SUCCESS";
 export const RESET_FAIL = "RESET_FAIL";
+export const CREATE_GALLERY_SUCCESS = "CREATE_GALLERY_SUCCES";
+export const CREATE_GALLERY_FAIL = "CREATE_GALLERY_FAIL";
 export const SET_MESSAGE = "SET_MESSAGE";
 export const CLEAR_MESSAGE = "CLEAR_MESSAGE";

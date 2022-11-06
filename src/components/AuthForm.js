@@ -5,6 +5,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
+import { Link } from "react-router-dom";
 
 const required = value => {
     if(!value){
@@ -101,6 +102,13 @@ const AuthForm = props => {
     return (
         <div className="col-md-12">
             <div className="card card-container">
+                {message && (
+                    <div className="form-group">
+                        <div className="alert alert-danger" role="alert">
+                            {message}
+                        </div>
+                    </div>
+                )}
                 <h2>{actionName}</h2>
                 <Form onSubmit={!reset ? handleLogin : handleReset} ref={form}>
                     {!reset && (
@@ -144,7 +152,7 @@ const AuthForm = props => {
                     )}
                         
 
-                    <a href={link}>{linkText}</a>
+                    <Link to={link}>{linkText}</Link>
                     <div className="form-group">
                         <button className="btn btn-primary btn-block" disabled={loading}>
                             {loading && (
@@ -153,14 +161,6 @@ const AuthForm = props => {
                             <span>{actionName}</span>
                         </button>
                     </div>
-
-                    {message && (
-                        <div className="form-group">
-                            <div className="alert alert-danger" role="alert">
-                                {message}
-                            </div>
-                        </div>
-                    )}
                     <CheckButton style={{ display: "none" }} ref={CheckBtn} />
                 </Form>
             </div>

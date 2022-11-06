@@ -22,7 +22,6 @@ const ImagesGallery = () => {
     return (
         <div className="container">
             <header className="jumbotron">
-                {/* <h3>{content.title}</h3> */}
                 <h1>Images Gallery</h1>
             </header>
         </div>
